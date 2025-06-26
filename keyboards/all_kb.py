@@ -3,8 +3,8 @@ from create_bot import admins
 
 def main_kb(user_telegram_id: int):
     kb_list = [
-        [KeyboardButton(text="📖 О нас"), KeyboardButton(text="👤 Профиль")],
-        [KeyboardButton(text="📝 Заполнить анкету"), KeyboardButton(text="📚 Каталог")]
+        [KeyboardButton(text="📖 О нас"), KeyboardButton(text="📚 Каталог")],
+        [KeyboardButton(text="📝 Заполнить анкету")],
     ]
     if user_telegram_id in admins:
         kb_list.append([KeyboardButton(text="⚙️ Админ панель")])
