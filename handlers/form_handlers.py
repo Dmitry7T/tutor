@@ -65,7 +65,12 @@ async def capture_direction(message: Message, state: FSMContext):
 @questionnaire_router.callback_query(F.data == 'correct', Form.check_state)
 async def start_questionnaire_process(callback: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    msg_text = (f'Пользователь: @{(callback.message.from_user).username} ждет обслуживания!\nОбращайтесь как: <b>{data.get("name")}</b>\n{data.get("grade")} класс\nНаправление: {data.get("direction")}')
+    if(callback.from_user.username):
+        msg_text = (f'Пользователь: @{callback.from_user.username} ждет обслуживания!\nОбращайтесь как: <b>{data.get("name")}</b>\n{data.get("grade")} класс\nНаправление: {data.get("direction")}')
+    else:
+        user_link = f"tg://user?id={callback.from_user.id}"
+        msg_text = (f'Пользователь: {user_link} ждет обслуживания!\nОбращайтесь как: <b>{data.get("name")}</b>\n{data.get("grade")} класс\nНаправление: {data.get("direction")}')
+
     try:  
         await bot.send_message(1953572824, msg_text) 
         await callback.message.answer('Информация направлена адменистратору, вам напишут в ближайшее время')
